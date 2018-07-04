@@ -24,6 +24,7 @@ namespace tesseract { namespace php {
         ~Tesseract();
 
         char* get_text();
+        void set_rectangle(int left, int top, int width, int height);
     };
 
 }}

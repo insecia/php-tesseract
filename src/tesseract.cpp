@@ -43,7 +43,16 @@ namespace tesseract { namespace php {
 
     char* Tesseract::get_text()
     {
+        if (this->out_text) {
+            delete [] this->out_text;
+        }
+
         this->out_text = this->tesseract_api->GetUTF8Text();
         return this->out_text;
+    }
+
+    void Tesseract::set_rectangle(int left, int top, int width, int height)
+    {
+        this->tesseract_api->SetRectangle(left, top, width, height);
     }
 }}
