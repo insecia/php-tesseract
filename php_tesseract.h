@@ -64,7 +64,7 @@ namespace {
         auto intern = Z_OBJECT_TESSERACT_P(getThis());
         intern->set_rectangle(left, top, width, height);
 
-        RETURN_ZVAL(getThis(), 0, 1);
+        RETURN_ZVAL(getThis(), 1, 0);
     }
 
     ZEND_BEGIN_ARG_INFO_EX(tesseract_tesseract_void, 0, 0, 0)
