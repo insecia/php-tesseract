@@ -51,6 +51,16 @@ namespace tesseract { namespace php {
         return this->out_text;
     }
 
+    char* Tesseract::get_hocr_text()
+    {
+        if (this->out_text) {
+            delete [] this->out_text;
+        }
+
+        this->out_text = this->tesseract_api->GetHOCRText(0);
+        return this->out_text;
+    }
+
     void Tesseract::set_rectangle(int left, int top, int width, int height)
     {
         this->tesseract_api->SetRectangle(left, top, width, height);

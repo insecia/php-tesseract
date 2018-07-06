@@ -53,6 +53,17 @@ namespace {
         RETURN_STRING(intern->get_text());
     }
 
+    PHP_METHOD(Tesseract, getHocrText)
+    {
+        if (zend_parse_parameters_none() == FAILURE) {
+            return;
+        }
+
+        auto intern = Z_OBJECT_TESSERACT_P(getThis());
+
+        RETURN_STRING(intern->get_hocr_text());
+    }
+
     PHP_METHOD(Tesseract, getRectangle)
     {
         long left, top, width, height;
@@ -89,6 +100,7 @@ namespace {
         PHP_ME(Tesseract, fromFile, tesseract_tesseract_from_file, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
         PHP_ME(Tesseract, fromString, tesseract_tesseract_from_string, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
         PHP_ME(Tesseract, getText, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
+        PHP_ME(Tesseract, getHocrText, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
         PHP_ME(Tesseract, getRectangle, tesseract_tesseract_get_rectangle, ZEND_ACC_PUBLIC)
         PHP_FE_END
     };
