@@ -24,7 +24,7 @@ namespace tesseract { namespace php {
     {
         this->tesseract_api = new tesseract::TessBaseAPI();
 
-        if (this->tesseract_api->Init(NULL, "deu")) {
+        if (this->tesseract_api->Init(NULL, "eng")) {
             fprintf(stderr, "Could not initialize tesseract.\n");
             exit(1);
         }
