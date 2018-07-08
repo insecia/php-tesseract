@@ -18,6 +18,9 @@ namespace tesseract { namespace php {
         char* out_text;
         zend_object std;
 
+        static constexpr char* LANGUAGE_GERMAN = "deu";
+        static constexpr char* LANGUAGE_ENGLISH = "eng";
+
         static zend_object_handlers handler_tesseract;
         static zend_object* create_object(zend_class_entry* ce TSRMLS_CC);
         static Tesseract* fetch_object(zend_object* obj);

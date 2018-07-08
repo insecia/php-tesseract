@@ -11,6 +11,17 @@ PHP_MINIT_FUNCTION(tesseract)
 {
     init_tesseract_ce();
 
+    REGISTER_STRING_CONSTANT(
+        "Tesseract\\Language\\GERMAN",
+        const_cast<char*>(tesseract::php::Tesseract::LANGUAGE_GERMAN),
+        CONST_PERSISTENT | CONST_CS
+    );
+    REGISTER_STRING_CONSTANT(
+        "Tesseract\\Language\\ENGLISH",
+        const_cast<char*>(tesseract::php::Tesseract::LANGUAGE_ENGLISH),
+        CONST_PERSISTENT | CONST_CS
+    );
+
     return SUCCESS;
 }
 
