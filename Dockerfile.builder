@@ -23,11 +23,10 @@ RUN apk add --update \
     tesseract-ocr \
     tesseract-ocr-dev
 
-RUN wget https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata && \
+RUN wget https://github.com/tesseract-ocr/tessdata/raw/3.04.00/eng.traineddata && \
     mv -v eng.traineddata /usr/share/tessdata && \
-    wget https://github.com/tesseract-ocr/tessdata/raw/master/deu.traineddata && \
+    wget https://github.com/tesseract-ocr/tessdata/raw/3.04.00/deu.traineddata && \
     mv -v deu.traineddata /usr/share/tessdata
-
 
 WORKDIR /app
 VOLUME ["/app"]
