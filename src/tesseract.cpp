@@ -20,11 +20,11 @@ namespace tesseract { namespace php {
     }
 
 
-    Tesseract::Tesseract(Pix* image)
+    Tesseract::Tesseract(Pix* image, std::string languages)
     {
         this->tesseract_api = new tesseract::TessBaseAPI();
 
-        if (this->tesseract_api->Init(NULL, "eng")) {
+        if (this->tesseract_api->Init(NULL, languages.c_str())) {
             fprintf(stderr, "Could not initialize tesseract.\n");
             exit(1);
         }

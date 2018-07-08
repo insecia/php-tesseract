@@ -14,32 +14,72 @@ namespace {
     {
         char* file_path;
         size_t len;
+        HashTable* langArray = NULL;
+        zval* lang;
+        std::string languages = "";
 
-        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_path, &len) == FAILURE) {
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|h", &file_path, &len, &langArray) == FAILURE) {
             return;
+        }
+
+        if (langArray) {
+            bool firstLanguage = true;
+            ZEND_HASH_FOREACH_VAL(langArray, lang) {
+                if (Z_TYPE_P(lang) == IS_STRING) {
+                    if (firstLanguage) {
+                        firstLanguage = false;
+                    } else {
+                        languages.append("+");
+                    }
+
+                    languages.append(Z_STRVAL_P(lang));
+                }
+            } ZEND_HASH_FOREACH_END();
+        } else {
+            languages = "eng";
         }
 
         Pix *image = pixRead(file_path);
 
         object_init_ex(return_value, tesseract_ce);
         auto intern = Z_OBJECT_TESSERACT(Z_OBJ_P(return_value));
-        new (intern) tesseract::php::Tesseract(image);
+        new (intern) tesseract::php::Tesseract(image, languages);
     }
 
     PHP_METHOD(Tesseract, fromString)
     {
         char* file_content;
         size_t len;
+        HashTable* langArray = NULL;
+        zval* lang;
+        std::string languages = "";
 
-        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_content, &len) == FAILURE) {
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|h", &file_content, &len, &langArray) == FAILURE) {
             return;
+        }
+
+        if (langArray) {
+            bool firstLanguage = true;
+            ZEND_HASH_FOREACH_VAL(langArray, lang) {
+                if (Z_TYPE_P(lang) == IS_STRING) {
+                    if (firstLanguage) {
+                        firstLanguage = false;
+                    } else {
+                        languages.append("+");
+                    }
+
+                    languages.append(Z_STRVAL_P(lang));
+                }
+            } ZEND_HASH_FOREACH_END();
+        } else {
+            languages = "eng";
         }
 
         Pix* image = pixReadMem(reinterpret_cast<l_uint8*>(file_content), len);
 
         object_init_ex(return_value, tesseract_ce);
         auto intern = Z_OBJECT_TESSERACT(Z_OBJ_P(return_value));
-        new (intern) tesseract::php::Tesseract(image);
+        new (intern) tesseract::php::Tesseract(image, languages);
     }
 
     PHP_METHOD(Tesseract, getText)

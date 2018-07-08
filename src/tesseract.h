@@ -4,6 +4,8 @@ extern "C" {
 #include <php.h>
 }
 
+#include <string>
+
 #include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
 
@@ -20,7 +22,7 @@ namespace tesseract { namespace php {
         static zend_object* create_object(zend_class_entry* ce TSRMLS_CC);
         static Tesseract* fetch_object(zend_object* obj);
 
-        Tesseract(Pix* image);
+        Tesseract(Pix* image, std::string languages = "eng");
         ~Tesseract();
 
         char* get_text();
