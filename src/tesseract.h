@@ -31,6 +31,7 @@ namespace tesseract { namespace php {
         char* get_text();
         char* get_hocr_text();
         void set_rectangle(int left, int top, int width, int height);
+        void set_page_seg_mode(int mode);
     };
 
 }}

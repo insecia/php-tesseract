@@ -118,6 +118,20 @@ namespace {
         RETURN_ZVAL(getThis(), 1, 0);
     }
 
+    PHP_METHOD(Tesseract, setPageSegMode)
+    {
+        long mode;
+
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &mode) == FAILURE) {
+            return;
+        }
+
+        auto intern = Z_OBJECT_TESSERACT_P(getThis());
+        intern->set_page_seg_mode(mode);
+
+        RETURN_ZVAL(getThis(), 1, 0);
+    }
+
     ZEND_BEGIN_ARG_INFO_EX(tesseract_tesseract_void, 0, 0, 0)
     ZEND_END_ARG_INFO()
 
@@ -136,12 +150,17 @@ namespace {
         ZEND_ARG_INFO(0, height)
     ZEND_END_ARG_INFO()
 
+    ZEND_BEGIN_ARG_INFO_EX(tesseract_tesseract_set_page_seg_mode, 0, 0, 0)
+        ZEND_ARG_INFO(0, mode)
+    ZEND_END_ARG_INFO()
+
     zend_function_entry tesseract_methods[] = {
         PHP_ME(Tesseract, fromFile, tesseract_tesseract_from_file, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
         PHP_ME(Tesseract, fromString, tesseract_tesseract_from_string, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
         PHP_ME(Tesseract, getText, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
         PHP_ME(Tesseract, getHocrText, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
         PHP_ME(Tesseract, getRectangle, tesseract_tesseract_get_rectangle, ZEND_ACC_PUBLIC)
+        PHP_ME(Tesseract, setPageSegMode, tesseract_tesseract_set_page_seg_mode, ZEND_ACC_PUBLIC)
         PHP_FE_END
     };
 

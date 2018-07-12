@@ -65,4 +65,13 @@ namespace tesseract { namespace php {
     {
         this->tesseract_api->SetRectangle(left, top, width, height);
     }
+
+    void Tesseract::set_page_seg_mode(int mode)
+    {
+        if (mode >= tesseract::PSM_AUTO_OSD && mode < tesseract::PSM_COUNT) {
+            this->tesseract_api->SetPageSegMode(static_cast<tesseract::PageSegMode>(mode));
+        } else {
+            // @todo exception
+        }
+    }
 }}
