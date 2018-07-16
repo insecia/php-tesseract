@@ -38,3 +38,19 @@ of an image. This has the advantage of not requiring the creation of a temporary
 ```php
 $textContent = \Tesseract\Tesseract::fromString($imageContent)->getText();
 ``` 
+One or multiple languages can also be specified. Note that the language file for the 
+specified languages must be installed. Refer to the Dockerfile for usage under Alpine or
+the tesseract-ocr documentation.
+```php
+$tesseract = \Tesseract\Tesseract::fromFile('image.jpg', [
+    \Tesseract\Language\GERMAN,
+    \Tesseract\Language\ENGLISH
+]);
+$textContent = $tesseract->getText();
+```
+It is also possible to choose a different page seg mode.
+```php
+$tesseract = \Tesseract\Tesseract::fromFile('image.jpg');
+echo $tesseract->setPageSegMode(\Tesseract\PageSegMode\SINGLE_WORD)->getText();
+```
+
