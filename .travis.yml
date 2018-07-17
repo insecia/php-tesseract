@@ -8,9 +8,10 @@ php:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y gdb valgrind
-  - sudo apt-get install -y git build-essential autoconf automake libtool bison re2c cmake libssl-dev libcurl4-openssl-dev libboost-system-dev libboost-thread-dev
+  - sudo apt-get install -y git build-essential autoconf automake libtool bison re2c cmake
+  - sudo apt-get install -y tesseract-ocr libtesseract-dev tesseract-ocr-eng tesseract-ocr-deu libleptonica-dev
   - sudo chmod +x ./travis/compile.sh
   - "./travis/compile.sh"
 
 script:
-  - make test
+  - REPORT_EXIT_STATUS=1 TEST_PHP_ARGS="-q --show-diff" make test
