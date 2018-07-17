@@ -1,0 +1,16 @@
+sudo: required
+language: php
+
+php:
+  - 7.2
+  - 7.1
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y gdb valgrind
+  - sudo apt-get install -y git build-essential autoconf automake libtool bison re2c cmake libssl-dev libcurl4-openssl-dev libboost-system-dev libboost-thread-dev
+  - sudo chmod +x ./travis/compile.sh
+  - "./travis/compile.sh"
+
+script:
+  - make test
