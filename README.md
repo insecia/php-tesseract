@@ -1,4 +1,7 @@
 # php-tesseract
+
+[![Build Status](https://travis-ci.org/insecia/php-tesseract.svg?branch=master)](https://travis-ci.org/insecia/php-tesseract.svg?branch=master)
+
 This extension is currently under development. 
 ## Installation
 ### Initial Setup
