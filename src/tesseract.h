@@ -5,6 +5,7 @@ extern "C" {
 }
 
 #include <string>
+#include <future>
 
 #include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
@@ -29,7 +30,10 @@ namespace tesseract { namespace php {
         ~Tesseract();
 
         char* get_text();
+        std::future<char*> get_text_async();
+
         char* get_hocr_text();
+
         void set_rectangle(int left, int top, int width, int height);
         void set_page_seg_mode(int mode);
     };

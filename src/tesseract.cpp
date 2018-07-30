@@ -51,6 +51,18 @@ namespace tesseract { namespace php {
         return this->out_text;
     }
 
+    std::future<char*> Tesseract::get_text_async()
+    {
+        std::future<char*> future = std::async(
+            std::launch::async,
+            [this]() {
+                return this->get_text();
+            }
+        );
+
+        return future;
+    }
+
     char* Tesseract::get_hocr_text()
     {
         if (this->out_text) {

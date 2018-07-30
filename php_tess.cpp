@@ -1,15 +1,20 @@
 #include "php_tess.h"
 
 zend_class_entry *tesseract_ce;
+zend_class_entry *future_ce;
 
 #define Z_OBJECT_TESSERACT(zo) (tesseract::php::Tesseract::fetch_object(zo))
 #define Z_OBJECT_TESSERACT_P(zo) (tesseract::php::Tesseract::fetch_object(Z_OBJ_P(zo)))
+#define Z_OBJECT_FUTURE(zo) (tesseract::php::Future::fetch_object(zo))
+#define Z_OBJECT_FUTURE_P(zo) (tesseract::php::Future::fetch_object(Z_OBJ_P(zo)))
 
 #include "php_tesseract.h"
+#include "php_future.h"
 
 PHP_MINIT_FUNCTION(tesseract)
 {
     init_tesseract_ce();
+    init_future_ce();
 
     REGISTER_STRING_CONSTANT(
         "Tesseract\\Language\\GERMAN",

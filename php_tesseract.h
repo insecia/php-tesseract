@@ -7,6 +7,8 @@ extern "C" {
 
 #include <new>
 #include "src/tesseract.h"
+#include "src/future.h"
+#include <thread>
 
 namespace {
 
@@ -93,6 +95,21 @@ namespace {
         RETURN_STRING(intern->get_text());
     }
 
+    PHP_METHOD(Tesseract, getTextAsync)
+    {
+        if (zend_parse_parameters_none() == FAILURE) {
+            return;
+        }
+
+        auto intern = Z_OBJECT_TESSERACT_P(getThis());
+
+        std::shared_future<char*> future = intern->get_text_async().share();
+
+        object_init_ex(return_value, future_ce);
+        auto internFuture = Z_OBJECT_FUTURE(Z_OBJ_P(return_value));
+        new (internFuture) tesseract::php::Future(std::move(future));
+    }
+
     PHP_METHOD(Tesseract, getHocrText)
     {
         if (zend_parse_parameters_none() == FAILURE) {
@@ -158,6 +175,7 @@ namespace {
         PHP_ME(Tesseract, fromFile, tesseract_tesseract_from_file, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
         PHP_ME(Tesseract, fromString, tesseract_tesseract_from_string, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
         PHP_ME(Tesseract, getText, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
+        PHP_ME(Tesseract, getTextAsync, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
         PHP_ME(Tesseract, getHocrText, tesseract_tesseract_void, ZEND_ACC_PUBLIC)
         PHP_ME(Tesseract, getRectangle, tesseract_tesseract_get_rectangle, ZEND_ACC_PUBLIC)
         PHP_ME(Tesseract, setPageSegMode, tesseract_tesseract_set_page_seg_mode, ZEND_ACC_PUBLIC)

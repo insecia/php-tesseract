@@ -27,5 +27,5 @@ if test $PHP_TESSERACT != "no"; then
     PHP_SUBST(TESSERACT_SHARED_LIBADD)
     PHP_ADD_LIBRARY(stdc++, 1, TESSERACT_SHARED_LIBADD)
     PHP_ADD_LIBRARY_WITH_PATH(tesseract, $TESSERACT_LIB_DIR, TESSERACT_SHARED_LIBADD)
-    PHP_NEW_EXTENSION(tesseract, php_tess.cpp src/tesseract.cpp, $ext_shared)
+    PHP_NEW_EXTENSION(tesseract, php_tess.cpp src/tesseract.cpp src/future.cpp, $ext_shared)
 fi
